@@ -1,10 +1,11 @@
 const { Kafka } = require("kafkajs");
-// const pool = require("../db");
+const { client } = require("../loaders/database");
 const { KAFKA_CONFIG } = require("../utils/config");
 
 // const topic_name = process.argv[2] || "Logs2";
 
 async function createConsumer() {
+  console.log("here");
   try {
     // connect to kafka
     const kafka = new Kafka({
@@ -30,13 +31,11 @@ async function createConsumer() {
           `Received message: ${res.message.value}, key:${res.message.key} , Partition => ${res.partition} `
         );
 
-        //console.log(res.message.key.toString())
-
         if (res.message.key.toString() !== "1") {
-          pool
+          client
             .query(
-              "INSERT INTO person (person_id,message) VALUES($1,$2) RETURNING *",
-              [res.message.key, res.message.value]
+              "INSERT INTO person_message (person_id,message) VALUES($1,$2) RETURNING *",
+              [res.message.key.toString(), res.message.value.toString()]
             )
             .then(() => {
               console.log("insreted to database");

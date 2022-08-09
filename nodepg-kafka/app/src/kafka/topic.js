@@ -17,7 +17,7 @@ async function createTopic() {
       topics: [
         {
           topic: KAFKA_CONFIG.topic,
-          numPartitions: 5,
+          numPartitions: 1,
         },
       ],
     });

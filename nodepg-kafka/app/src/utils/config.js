@@ -1,6 +1,6 @@
 KAFKA_CONFIG = {
   clientId: "kafka1",
-  broker: "localhost:9092",
+  broker: "10.0.74.66:9092",
   groupId: "ismail",
   topic: "topic1",
 };
