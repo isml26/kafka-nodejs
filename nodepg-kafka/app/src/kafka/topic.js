@@ -28,6 +28,7 @@ async function createTopic() {
   }
 }
 
+
 module.exports = {
   createTopic,
 };
