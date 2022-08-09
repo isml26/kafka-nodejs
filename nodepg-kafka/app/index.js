@@ -1,7 +1,9 @@
 const app = require("./src/loaders/app");
-const { connectDb } = require("./src/loaders/database");
+const { singleton } = require("./src/loaders/database");
 const { createConsumer } = require("./src/kafka/consumer");
 const { createTopic } = require("./src/kafka/topic");
+
+// node -r ./tracing.js index.js
 
 const PORT = process.env.PORT || 8080;
 
@@ -14,10 +16,10 @@ async function startServer() {
     createConsumer();
   }, 6000);
 
-  connectDb();
+  singleton.getDbConn();
 
   app.listen(PORT, () => {
-    console.log(`Listeningggg on port ${PORT}`);
+    console.log(`Listening on port ${PORT}`);
   });
 }
 

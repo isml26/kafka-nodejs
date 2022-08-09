@@ -5,5 +5,3 @@
 - Learn More [APACHE KAFKA](https://kafka.apache.org/).
 - Learn More [KAFKAJS](https://kafka.js.org/).
 - Learn More [DOCKER](https://www.docker.com/).
-
-
