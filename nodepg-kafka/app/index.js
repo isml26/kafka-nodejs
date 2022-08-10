@@ -8,6 +8,7 @@ const { createTopic } = require("./src/kafka/topic");
 const PORT = process.env.PORT || 8080;
 
 async function startServer() {
+  
   setTimeout(() => {
     createTopic();
   }, 3000);
@@ -15,6 +16,7 @@ async function startServer() {
   setTimeout(() => {
     createConsumer();
   }, 6000);
+
 
   singleton.getDbConn();
 

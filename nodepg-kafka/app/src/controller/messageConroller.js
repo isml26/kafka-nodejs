@@ -8,15 +8,19 @@ async function sendMessage(req, res) {
       return res.status(400).json("Pls give id and message");
     }
 
-    createProducer(id, message);
-
-    const newMessage = await client.query(
-      "INSERT INTO person_message (person_id,message) VALUES($1,$2) RETURNING *",
-      [id, message]
-    );
+    const newMessage = await client
+      .query(
+        "INSERT INTO person_message (person_id,message) VALUES($1,$2) RETURNING *",
+        [id, message]
+      )
+      .then(() => {
+        createProducer(id, message);
+      });
     return res.status(201).json(newMessage.rows[0]);
   } catch (error) {
-    console.error(error);
+    return res.status(404).json({
+      error: error.message,
+    });
   }
 }
 

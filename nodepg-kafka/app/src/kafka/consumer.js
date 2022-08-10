@@ -5,13 +5,13 @@ const { KAFKA_CONFIG } = require("../utils/config");
 // const topic_name = process.argv[2] || "Logs2";
 
 async function createConsumer() {
-  console.log("here");
   try {
     // connect to kafka
     const kafka = new Kafka({
       clientId: KAFKA_CONFIG.clientId,
       brokers: [KAFKA_CONFIG.broker],
     });
+    //consumer group
     const consumer = kafka.consumer({
       groupId: KAFKA_CONFIG.groupId,
     });
