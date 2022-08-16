@@ -29,7 +29,6 @@ async function createProducer(id, message) {
     });
 
     console.log("Data has been sent successfully", JSON.stringify(res));
-    await producer.disconnect();
   } catch (error) {
     console.log("producer.js/Something went wrong: ", error);
   }

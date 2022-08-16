@@ -1,6 +1,6 @@
 KAFKA_CONFIG = {
   clientId: "kafka1",
-  broker: "10.0.74.66:9092",
+  broker: "localhost:9092",
   groupId: "ismail",
   topic: "topic1",
 };
@@ -13,7 +13,14 @@ DATABASE_CONFIG = {
   port: 5432,
 };
 
+KAFKA={
+  producer:null,
+  consumer:null,
+  kafka:null
+}
+
 module.exports = {
   KAFKA_CONFIG,
   DATABASE_CONFIG,
+  KAFKA
 };
