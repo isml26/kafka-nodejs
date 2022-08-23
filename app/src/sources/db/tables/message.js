@@ -13,7 +13,7 @@ Message.prototype.insertMessageToDb = async function (id, message) {
   return newMessage.rows[0];
 };
 Message.prototype.getAllMessagesFromDb = async function () {
-  const getMessages = await client.query("SELECT * FROM person_message");
+  const getMessages = await client.query(query.getMessage);
   return getMessages.rows;
 };
 

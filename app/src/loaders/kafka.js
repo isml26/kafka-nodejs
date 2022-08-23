@@ -1,7 +1,6 @@
 const { Kafka } = require("kafkajs");
 const { KAFKA_CONFIG, KAFKA } = require("../utils/config");
-
-// connect to kafka
+const { client } = require("../loaders/database");
 
 function initializeKafka() {
   KAFKA.kafka = new Kafka({
@@ -28,10 +27,10 @@ async function connectKafkaConsumer() {
       groupId: KAFKA_CONFIG.groupId,
     });
     console.log("Connecting to kafka consumer...");
-    await consumer.connect();
+    await KAFKA.consumer.connect();
     console.log("Connected to kafka consumer...");
 
-    // Consumer subscribe
+    // // Consumer subscribe
     await KAFKA.consumer.subscribe({
       topic: KAFKA_CONFIG.topic,
       fromBeginning: true,

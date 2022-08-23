@@ -1,8 +1,6 @@
 const app = require("./src/loaders/app");
 const { connectDb } = require("./src/loaders/database");
 const { createConsumer } = require("./src/kafka/consumer");
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUI = require("swagger-ui-express");
 const {
   initializeKafka,
   connectKafkaConsumer,
@@ -27,7 +25,7 @@ async function startServer() {
 
 
   setTimeout(() => {
-    createConsumer();
+    connectKafkaConsumer();
   }, 3000);
 
   

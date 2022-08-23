@@ -33,7 +33,7 @@ const router = express.Router();
  *   responses:
  *    201:
  *     description: employee created succesfully
- *    400:
+ *    404:
  *     description: failure in creating employee
  */
 
@@ -46,7 +46,7 @@ const router = express.Router();
  *   responses:
  *    200:
  *     description: success
- *    400:
+ *    404:
  *     description: error
  */
 
