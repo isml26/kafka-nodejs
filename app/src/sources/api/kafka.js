@@ -1,9 +1,9 @@
-const { KAFKA_CONFIG, KAFKA } = require("../../utils/config");
+const { KAFKA_CONFIG } = require("../../utils/config");
 // connect to kafka
 
 async function produceMessage(id, message) {
   try {
-    await KAFKA.producer.send({
+    await global.producer.send({
       topic: KAFKA_CONFIG.topic,
       messages: [
         {
@@ -19,31 +19,30 @@ async function produceMessage(id, message) {
   }
 }
 
-async function runConsumer() {
-  await KAFKA.consumer.run({
-    eachMessage: async (res) => {
-      console.log(
-        `Received message: ${res.message.value}, key:${res.message.key} , Partition => ${res.partition} `
-      );
+// async function runConsumer() {
+//   await global.consumer.run({
+//     eachMessage: async (res) => {
+//       console.log(
+//         `Received message: ${res.message.value}, key:${res.message.key} , Partition => ${res.partition} `
+//       );
 
-      if (res.message.key.toString() !== "1") {
-        client
-          .query(
-            "INSERT INTO person_message (person_id,message) VALUES($1,$2) RETURNING *",
-            [res.message.key.toString(), res.message.value.toString()]
-          )
-          .then(() => {
-            console.log("insreted to database");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    },
-  });
-}
+//       if (res.message.key.toString() !== "1") {
+//         client
+//           .query(
+//             "INSERT INTO person_message (person_id,message) VALUES($1,$2) RETURNING *",
+//             [res.message.key.toString(), res.message.value.toString()]
+//           )
+//           .then(() => {
+//             console.log("insreted to database");
+//           })
+//           .catch((err) => {
+//             console.log(err);
+//           });
+//       }
+//     },
+//   });
+// }
 
 module.exports = {
   produceMessage,
-  runConsumer
 };

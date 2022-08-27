@@ -1,9 +1,9 @@
 const { Kafka } = require("kafkajs");
-const { KAFKA_CONFIG, KAFKA } = require("../utils/config");
+const { KAFKA_CONFIG } = require("../utils/config");
 const { client } = require("../loaders/database");
 
 function initializeKafka() {
-  KAFKA.kafka = new Kafka({
+  global.kafka = new Kafka({
     clientId: KAFKA_CONFIG.clientId,
     brokers: [KAFKA_CONFIG.broker],
   });
@@ -12,8 +12,8 @@ function initializeKafka() {
 
 async function connectKafkaProducer() {
   try {
-    KAFKA.producer = KAFKA.kafka.producer();
-    await KAFKA.producer.connect();
+    global.producer = global.kafka.producer();
+    await global.producer.connect();
     console.log("Connected to kafka producer...");
   } catch (error) {
     console.log(error);
@@ -23,20 +23,20 @@ async function connectKafkaProducer() {
 async function connectKafkaConsumer() {
   try {
     //consumer group
-    KAFKA.consumer = KAFKA.kafka.consumer({
+    global.consumer = global.kafka.consumer({
       groupId: KAFKA_CONFIG.groupId,
     });
     console.log("Connecting to kafka consumer...");
-    await KAFKA.consumer.connect();
+    await global.consumer.connect();
     console.log("Connected to kafka consumer...");
 
     // // Consumer subscribe
-    await KAFKA.consumer.subscribe({
+    await global.consumer.subscribe({
       topic: KAFKA_CONFIG.topic,
       fromBeginning: true,
     });
 
-    await KAFKA.consumer.run({
+    await global.consumer.run({
       eachMessage: async (res) => {
         console.log(
           `Received message: ${res.message.value}, key:${res.message.key} , Partition => ${res.partition} `

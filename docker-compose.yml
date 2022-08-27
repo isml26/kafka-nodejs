@@ -34,7 +34,7 @@ services:
   #   depends_on:
   #     - postgres
   #   networks: 
-  #     - inavitas-app
+  #     - kafka-app
   postgres:
     image: postgres
     restart: always
